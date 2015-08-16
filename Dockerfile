@@ -9,7 +9,7 @@ RUN pacman -Sy
 # set environmnt variable defaults
 ENV REGENERATE_SSL_CERT false
 ENV START_APACHE true
-ENV START_MYSQL true
+ENV START_MYSQL false
 ENV MAX_UPLOAD_SIZE 30G
 ENV TARGET_SUBDIR owncloud
 
@@ -63,12 +63,12 @@ RUN sed -i '$a Include conf/extra/owncloud.conf' /etc/httpd/conf/httpd.conf
 RUN chown -R http:http /usr/share/webapps/owncloud/
 
 # expose some important directories as volumes
-#VOLUME ["/usr/share/webapps/owncloud/data"]
-#VOLUME ["/etc/webapps/owncloud/config"]
-#VOLUME ["/usr/share/webapps/owncloud/apps"]
+VOLUME ["/usr/share/webapps/owncloud/data"]
+VOLUME ["/etc/webapps/owncloud/config"]
+VOLUME ["/usr/share/webapps/owncloud/apps"]
 
 # place your ssl cert files in here. name them server.key and server.crt
-#VOLUME ["/https"]
+VOLUME ["/https"]
 
 # start servers
 CMD ["/root/startServers.sh"]
